@@ -16,13 +16,14 @@ class TransactionList extends StatelessWidget {
         itemBuilder: (ctx, index) {
           final tr = transactions[index];
           return Card(
+            color: Colors.black38,
               child: Row(
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.purple,
+                          color: Color.fromARGB(255, 223,120, 0),
                           width: 2,
                         ),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -32,7 +33,7 @@ class TransactionList extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: Colors.purple),
+                          color: Color.fromARGB(255, 223,120, 0)),
                     ),
                   ),
                   Column(
@@ -41,6 +42,7 @@ class TransactionList extends StatelessWidget {
                       Text(
                         tr.title,
                         style: TextStyle(
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -50,7 +52,7 @@ class TransactionList extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
-                          color: Colors.black87,
+                          color: Colors.white,
                         ),
                       )
                     ],

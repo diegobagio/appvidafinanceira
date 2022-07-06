@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TransactionForm extends StatelessWidget {
-
-  final itemController = TextEditingController();
-  final valorController = TextEditingController();
-
-   final void Function(String, double) onSubmit;
+class TransactionForm extends StatefulWidget {
+  final void Function(String, double) onSubmit;
 
   TransactionForm(this.onSubmit);
+
+  @override
+  _TransactionFormState createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
+  final itemController = TextEditingController();
+  final valorController = TextEditingController();
 
   _submitForm() {
     final title = itemController.text;
@@ -17,7 +21,7 @@ class TransactionForm extends StatelessWidget {
       return;
     }
 
-    onSubmit(title, value);
+    widget.onSubmit(title, value);
   }
 
   @override
@@ -43,19 +47,21 @@ class TransactionForm extends StatelessWidget {
                 ElevatedButton(
                   onPressed: _submitForm,
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.purple)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black38)),
                   child: Text(
                     'Nova Transação',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        shadows: [
-                          Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 3.0,
-                              color: Color.fromARGB(255, 0, 0, 0))
-                        ]),
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      // shadows: [
+                      //   Shadow(
+                      //       offset: Offset(3.0, 3.0),
+                      //       blurRadius: 3.0,
+                      //       color: Color.fromARGB(255, 255, 255, 255))
+                      // ],
+                    ),
                   ),
                 ),
               ],
