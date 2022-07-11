@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:appvidafinanceira/components/transaction_form.dart';
 import 'package:appvidafinanceira/components/transaction_list.dart';
+import 'package:appvidafinanceira/enums/tipo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
