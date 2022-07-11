@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:appvidafinanceira/components/transaction_form.dart';
 import 'package:appvidafinanceira/components/transaction_list.dart';
+import 'package:appvidafinanceira/enums/tipo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,12 +30,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _transactions = [
-    Transaction(BigInt.from(1), 'Fatura Água', 408.7, DateTime.now()),
-    Transaction(BigInt.from(2), 'Fatura Energia', 238.35, DateTime.now()),
+    Transaction(BigInt.from(1), 'Fatura Água', 408.7, DateTime.now(), Tipo.PAGO),
+    Transaction(BigInt.from(2), 'Salário', 2038.35, DateTime.now(), Tipo.RECEBIDO),
   ];
 
-  _addTransaction(String title, double value) {
-    final newTransaction = Transaction(BigInt.from(Random().nextInt(2)), title, value, DateTime.now());
+  _addTransaction(String title, double value, Tipo tipo) {
+    final newTransaction = Transaction(BigInt.from(Random().nextInt(2)), title, value, DateTime.now(), tipo);
   }
 
   _openTransactionFormModal(BuildContext context) {

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../enums/tipo.dart';
+
 class TransactionForm extends StatelessWidget {
 
   final itemController = TextEditingController();
   final valorController = TextEditingController();
+  Tipo _tipo = Tipo.RECEBIDO;
 
-   final void Function(String, double) onSubmit;
+
+  final void Function(String, double, Tipo) onSubmit;
 
   TransactionForm(this.onSubmit);
 
@@ -17,16 +21,32 @@ class TransactionForm extends StatelessWidget {
       return;
     }
 
-    onSubmit(title, value);
+    onSubmit(title, value, _tipo );
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
+            ListTile(
+              title: const Text('Dog'),
+              leading: Radio<Tipo>(
+                fillColor: MaterialStateColor.resolveWith((states) => Colors.green),
+                focusColor: MaterialStateColor.resolveWith((states) => Colors.green),
+                value: Tipo.RECEBIDO,
+                groupValue: _tipo,
+                onChanged: (_) {},
+                // onChanged: (Tipo value) {
+                //   setState(() {
+                //     _tipo = value;
+                //   });
+                // },
+              ),
+            ),
             TextField(
               decoration: InputDecoration(labelText: 'Título'),
               controller: itemController,
