@@ -13,14 +13,6 @@ class TransactionForm extends StatelessWidget {
 
   TransactionForm(this.onSubmit);
 
-  @override
-  _TransactionFormState createState() => _TransactionFormState();
-}
-
-class _TransactionFormState extends State<TransactionForm> {
-  final itemController = TextEditingController();
-  final valorController = TextEditingController();
-
   _submitForm() {
     final title = itemController.text;
     final value = double.tryParse(valorController.text) ?? 0.0;
@@ -71,21 +63,19 @@ class _TransactionFormState extends State<TransactionForm> {
                 ElevatedButton(
                   onPressed: _submitForm,
                   style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black38)),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.purple)),
                   child: Text(
                     'Nova Transação',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      // shadows: [
-                      //   Shadow(
-                      //       offset: Offset(3.0, 3.0),
-                      //       blurRadius: 3.0,
-                      //       color: Color.fromARGB(255, 255, 255, 255))
-                      // ],
-                    ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        shadows: [
+                          Shadow(
+                              offset: Offset(3.0, 3.0),
+                              blurRadius: 3.0,
+                              color: Color.fromARGB(255, 0, 0, 0))
+                        ]),
                   ),
                 ),
               ],
