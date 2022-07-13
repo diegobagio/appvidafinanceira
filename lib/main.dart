@@ -52,13 +52,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   //Lista de Transações
   final _transactions = [
-    Transaction(BigInt.from(1), 'Fatura Água', 408.7, DateTime.now()),
-    Transaction(BigInt.from(2), 'Fatura Energia', 238.35, DateTime.now()),
+    Transaction(BigInt.from(1), 'Fatura Água', 408.7, DateTime.now(), Tipo.PAGO),
+    Transaction(BigInt.from(2), 'Fatura Energia', 238.35, DateTime.now(), Tipo.RECEBIDO),
   ];
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, Tipo tipo) {
     //Metodo para adicionar uma transação
-    final newTransaction = Transaction(BigInt.from(Random().nextInt(3)), title, value, DateTime.now());
+    final newTransaction = Transaction(BigInt.from(Random().nextInt(3)), title, value, DateTime.now(), tipo);
     setState(() {
       _transactions.add(newTransaction);
     });

@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 
 import '../enums/tipo.dart';
 
-class TransactionForm extends StatelessWidget {
-
-  final itemController = TextEditingController();
-  final valorController = TextEditingController();
-  Tipo _tipo = Tipo.RECEBIDO;
-
-
+class TransactionForm extends StatefulWidget {
   final void Function(String, double, Tipo) onSubmit;
 
   TransactionForm(this.onSubmit);
+
+  @override
+  _TransactionFormState createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
+  final itemController = TextEditingController();
+
+  final valorController = TextEditingController();
+
+  Tipo _tipo = Tipo.RECEBIDO;
 
   _submitForm() {
     final title = itemController.text;
@@ -21,31 +26,46 @@ class TransactionForm extends StatelessWidget {
       return;
     }
 
-    onSubmit(title, value, _tipo );
+    widget.onSubmit(title, value, _tipo);
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
-            ListTile(
-              title: const Text('Dog'),
-              leading: Radio<Tipo>(
-                fillColor: MaterialStateColor.resolveWith((states) => Colors.green),
-                focusColor: MaterialStateColor.resolveWith((states) => Colors.green),
-                value: Tipo.RECEBIDO,
-                groupValue: _tipo,
-                onChanged: (_) {},
-                // onChanged: (Tipo value) {
-                //   setState(() {
-                //     _tipo = value;
-                //   });
-                // },
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                        value: Tipo.RECEBIDO,
+                        groupValue: _tipo,
+                        onChanged: (value) {
+                          setState(() {
+                            _tipo = Tipo.RECEBIDO;
+                          });
+                        }),
+                    Text(Tipo.RECEBIDO.descricao)
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                        value: Tipo.PAGO,
+                        groupValue: _tipo,
+                        onChanged: (value) {
+                          setState(() {
+                            _tipo = Tipo.PAGO;
+                          });
+                        }),
+                    Text(Tipo.PAGO.descricao)
+                  ],
+                ),
+              ],
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Título'),
@@ -63,8 +83,8 @@ class TransactionForm extends StatelessWidget {
                 ElevatedButton(
                   onPressed: _submitForm,
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.purple)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.purple)),
                   child: Text(
                     'Nova Transação',
                     style: TextStyle(
