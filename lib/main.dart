@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //Lista de Transações
   final _transactions = [
     Transaction(BigInt.from(1), 'Fatura Água', 408.7, DateTime.now(), Tipo.PAGO),
-    Transaction(BigInt.from(2), 'Fatura Energia', 238.35, DateTime.now(), Tipo.RECEBIDO),
+    Transaction(BigInt.from(2), 'Salário', 3238.35, DateTime.now(), Tipo.RECEBIDO),
   ];
 
   _addTransaction(String title, double value, Tipo tipo) {

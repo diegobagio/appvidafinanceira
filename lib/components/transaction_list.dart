@@ -1,3 +1,4 @@
+import 'package:appvidafinanceira/enums/tipo.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class TransactionList extends StatelessWidget {
         itemCount: transactions.length,
         itemBuilder: (ctx, index) {
           final tr = transactions[index];
+          final colorItem = Tipo.RECEBIDO.descricao == tr.tipo.descricao ? Color.fromARGB(255, 0, 100, 255) : Color.fromARGB(255, 225,0, 100);
+          final formatCurrency = new NumberFormat.simpleCurrency(locale: 'pt_BR');
           return Card(
             color: Colors.black38,
               child: Row(
@@ -23,17 +26,18 @@ class TransactionList extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     decoration: BoxDecoration(
                         border: Border.all(
-                          color: Color.fromARGB(255, 223,120, 0),
+                          color: colorItem,
                           width: 2,
                         ),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'R\$ ${tr.value.toStringAsFixed(2)}',
+                        '${formatCurrency.format(tr.value)}',
+                      // 'R\$ ${tr.value.toStringAsFixed(2)}',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: Color.fromARGB(255, 223,120, 0)),
+                          color: colorItem),
                     ),
                   ),
                   Column(
