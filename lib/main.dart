@@ -17,6 +17,7 @@ class VidaFinanceira extends StatelessWidget {
     final ThemeData tema = ThemeData();
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Vida Financeira',
       theme: ThemeData(
         colorScheme: tema.colorScheme.copyWith(
