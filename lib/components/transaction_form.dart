@@ -116,18 +116,19 @@ class _TransactionFormState extends State<TransactionForm> {
                   onPressed: _submitForm,
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.purple)),
+                          MaterialStateProperty.all<Color>(Colors.black26)),
                   child: Text(
                     'Nova Transação',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
-                        shadows: [
-                          Shadow(
-                              offset: Offset(3.0, 3.0),
-                              blurRadius: 3.0,
-                              color: Color.fromARGB(255, 0, 0, 0))
-                        ]),
+                        // shadows: [
+                        //   Shadow(
+                        //       offset: Offset(3.0, 3.0),
+                        //       blurRadius: 3.0,
+                        //       color: Color.fromARGB(255, 0, 0, 0))
+                        // ],
+                    ),
                   ),
                 ),
               ],
