@@ -19,25 +19,18 @@ class VidaFinanceira extends StatelessWidget {
     return MaterialApp(
       title: 'Vida Financeira',
       theme: ThemeData(
-        colorScheme: tema.colorScheme.copyWith(
-          primary: Colors.black87,
-          secondary: Colors.blueAccent
-        ),
+        colorScheme: tema.colorScheme
+            .copyWith(primary: Colors.black87, secondary: Colors.blueAccent),
         textTheme: tema.textTheme.copyWith(
-          headline6: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black
-          )
-        ),
+            headline6: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black)),
         scaffoldBackgroundColor: Colors.white10,
         appBarTheme: AppBarTheme(
-          color: Colors.black87,
-          titleTextStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold
-          )
-        ),
+            color: Colors.black87,
+            titleTextStyle:
+                TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       ),
       home: MyHomePage(),
     );
@@ -52,13 +45,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   //Lista de Transações
   final _transactions = [
-    Transaction(BigInt.from(1), 'Fatura Água', 408.7, DateTime.now(), Tipo.PAGO),
-    Transaction(BigInt.from(2), 'Salário', 3238.35, DateTime.now(), Tipo.RECEBIDO),
+    Transaction(
+        BigInt.from(1), 'Fatura Água', 408.7, DateTime.now(), Tipo.PAGO),
+    Transaction(
+        BigInt.from(2), 'Salário', 3238.35, DateTime.now(), Tipo.RECEBIDO),
   ];
 
   _addTransaction(String title, double value, Tipo tipo) {
     //Metodo para adicionar uma transação
-    final newTransaction = Transaction(BigInt.from(Random().nextInt(3)), title, value, DateTime.now(), tipo);
+    final newTransaction = Transaction(
+        BigInt.from(Random().nextInt(3)), title, value, DateTime.now(), tipo);
     setState(() {
       _transactions.add(newTransaction);
     });
@@ -69,9 +65,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //Abrir modal para lançar nova transação
   _openTransactionFormModal(BuildContext context) {
-    return showModalBottomSheet(context: context, builder: (_) {
-      return TransactionForm(_addTransaction);
-    });
+    return showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        context: context,
+        isScrollControlled: true,
+        builder: (_) {
+          return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: TransactionForm(_addTransaction),
+                    ),
+                  ]
+                  // child: TransactionForm(_addTransaction),
+                  ));
+        });
   }
 
   @override
@@ -80,7 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Minha Vida Financeira'),
         actions: [
-          IconButton(onPressed: () => _openTransactionFormModal(context), icon: Icon(Icons.add, color: Color.fromARGB(255, 223,120, 0),))
+          IconButton(
+              onPressed: () => _openTransactionFormModal(context),
+              icon: Icon(
+                Icons.add,
+                color: Color.fromARGB(255, 223, 120, 0),
+              ))
         ],
       ),
       body: SingleChildScrollView(
@@ -112,7 +134,10 @@ class _MyHomePageState extends State<MyHomePage> {
             gradient: RadialGradient(
               center: const Alignment(-0.7, -0.5),
               radius: 0.28,
-              colors: [ Color.fromARGB(255, 255,200, 200), Color.fromARGB(255, 223,120, 0),],
+              colors: [
+                Color.fromARGB(255, 255, 200, 200),
+                Color.fromARGB(255, 223, 120, 0),
+              ],
             ),
           ),
         ),

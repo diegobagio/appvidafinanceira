@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../enums/tipo.dart';
 
@@ -13,7 +14,7 @@ class TransactionForm extends StatefulWidget {
 
 class _TransactionFormState extends State<TransactionForm> {
   final itemController = TextEditingController();
-
+  final dateController = TextEditingController();
   final valorController = TextEditingController();
 
   Tipo _tipo = Tipo.RECEBIDO;
@@ -31,7 +32,8 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      height: 300,
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
@@ -66,6 +68,36 @@ class _TransactionFormState extends State<TransactionForm> {
                   ],
                 ),
               ],
+            ),
+            TextField(
+              controller: dateController,
+              //editing controller of this TextField
+              decoration: InputDecoration(
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Selecione a Data" //label text of field
+                  ),
+              readOnly: true,
+              //set it true, so that user will not able to edit text
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    //DateTime.now() - not to allow to choose before today.
+                    lastDate: DateTime(2101));
+
+                if (pickedDate != null) {
+                  String formattedDate =
+                      DateFormat('dd/MM/yyyy').format(pickedDate);
+                  setState(() {
+                    dateController.text =
+                        formattedDate; //set output date to TextField value.
+                  });
+                } else {
+                  dateController.text =
+                      DateFormat('dd/MM/yyyy').format(DateTime.now());
+                }
+              },
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Título'),
