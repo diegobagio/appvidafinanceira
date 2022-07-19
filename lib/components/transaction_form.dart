@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../enums/tipo.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double, Tipo) onSubmit;
+  final void Function(String, double, DateTime, Tipo) onSubmit;
 
   TransactionForm(this.onSubmit);
 
@@ -22,12 +22,13 @@ class _TransactionFormState extends State<TransactionForm> {
   _submitForm() {
     final title = itemController.text;
     final value = double.tryParse(valorController.text) ?? 0.0;
+    final date =   new DateFormat('dd/MM/yyyy').parse(dateController.text);
 
     if (title.isEmpty || value <= 0) {
       return;
     }
 
-    widget.onSubmit(title, value, _tipo);
+    widget.onSubmit(title, value, date, _tipo);
   }
 
   @override
@@ -70,13 +71,12 @@ class _TransactionFormState extends State<TransactionForm> {
               ],
             ),
             TextField(
-              controller: dateController,
               //editing controller of this TextField
               decoration: InputDecoration(
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Selecione a Data" //label text of field
                   ),
-              readOnly: true,
+              // readOnly: true,
               //set it true, so that user will not able to edit text
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
@@ -98,6 +98,7 @@ class _TransactionFormState extends State<TransactionForm> {
                       DateFormat('dd/MM/yyyy').format(DateTime.now());
                 }
               },
+              controller: dateController,
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Título'),

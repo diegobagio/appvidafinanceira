@@ -6,6 +6,7 @@ import 'package:appvidafinanceira/enums/tipo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 import 'models/transaction.dart';
 
@@ -52,10 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
         BigInt.from(2), 'Salário', 3238.35, DateTime.now(), Tipo.RECEBIDO),
   ];
 
-  _addTransaction(String title, double value, Tipo tipo) {
+  _addTransaction(String title, double value, DateTime date, Tipo tipo) {
     //Metodo para adicionar uma transação
     final newTransaction = Transaction(
-        BigInt.from(Random().nextInt(3)), title, value, DateTime.now(), tipo);
+        BigInt.from(Random().nextInt(3)), title, value, date, tipo);
     setState(() {
       _transactions.add(newTransaction);
     });
