@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:appvidafinanceira/components/transaction_charts.dart';
 import 'package:appvidafinanceira/components/transaction_form.dart';
 import 'package:appvidafinanceira/components/transaction_list.dart';
 import 'package:appvidafinanceira/enums/tipo.dart';
@@ -32,7 +33,7 @@ class VidaFinanceira extends StatelessWidget {
         appBarTheme: AppBarTheme(
             color: Colors.black87,
             titleTextStyle:
-                TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       ),
       home: MyHomePage(),
     );
@@ -55,8 +56,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _addTransaction(String title, double value, DateTime date, Tipo tipo) {
     //Metodo para adicionar uma transação
-    final newTransaction = Transaction(
-        BigInt.from(Random().nextInt(3)), title, value, date, tipo);
+    final newTransaction =
+    Transaction(BigInt.from(Random().nextInt(3)), title, value, date, tipo);
     setState(() {
       _transactions.add(newTransaction);
     });
@@ -84,66 +85,92 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                          bottom: MediaQuery
+                              .of(context)
+                              .viewInsets
+                              .bottom),
                       child: TransactionForm(_addTransaction),
                     ),
                   ]
-                  // child: TransactionForm(_addTransaction),
-                  ));
+              ));
         });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Minha Vida Financeira'),
-        actions: [
-          IconButton(
-              onPressed: () => _openTransactionFormModal(context),
-              icon: Icon(
-                Icons.add,
-                color: Color.fromARGB(255, 223, 120, 0),
-              ))
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Card(
-                elevation: 5,
-                child: Text('Grafico'),
-              ),
-            ),
-            Column(
-              children: [
-                TransactionList(_transactions),
-              ],
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _openTransactionFormModal(context),
-        tooltip: 'Cool FAB',
-        child: Container(
-          width: 56,
-          height: 56,
-          child: Icon(Icons.add),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(
-              center: const Alignment(-0.7, -0.5),
-              radius: 0.28,
-              colors: [
-                Color.fromARGB(255, 255, 200, 200),
-                Color.fromARGB(255, 223, 120, 0),
+    return DefaultTabController(
+        initialIndex: 1,
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Minha Vida Financeira'),
+            actions: [
+              IconButton(
+                  onPressed: () => _openTransactionFormModal(context),
+                  icon: Icon(
+                    Icons.add,
+                    color: Color.fromARGB(255, 223, 120, 0),
+                  ))
+            ],
+            bottom: const TabBar(
+              tabs: <Widget>[
+                Tab(
+                  icon: Icon(Icons.attach_money),
+                ),
+                Tab(
+                  icon: Icon(Icons.bar_chart_sharp),
+                ),
+                Tab(
+                  icon: Icon(Icons.brightness_5_sharp),
+                ),
               ],
             ),
           ),
-        ),
-      ),
-    );
+          body: TabBarView(
+            children: <Widget>[
+              Container(
+                child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          TransactionList(_transactions),
+                        ],
+                      ),
+                )
+              ),
+              Container(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        TransactionCharts(_transactions),
+                      ],
+                    ),
+                  )
+              ),
+              Center(
+                child: Text("It's sunny here"),
+              ),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => _openTransactionFormModal(context),
+            tooltip: 'Cool FAB',
+            child: Container(
+              width: 56,
+              height: 56,
+              child: Icon(Icons.add),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  center: const Alignment(-0.7, -0.5),
+                  radius: 0.28,
+                  colors: [
+                    Color.fromARGB(255, 255, 200, 200),
+                    Color.fromARGB(255, 223, 120, 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
